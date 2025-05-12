@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MythosNet</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="navbar">
+    <a href="#">Ana Sayfa</a>
+    <a href="#">Hakkımızda</a>
+    <a href="#">Hizmetler</a>
+    <a href="#">İletişim</a>
+  </div>
+
+  <div class="hero">
+    <div>
+      <h1>MythosNet</h1>
+      <p>Mitolojinin ve Tarihin İzinde</p>
+      <button class="btn" id="moreBtn" onclick="revealOptions()">Daha Fazla</button>
+    </div>
+  </div>
+
+  <div class="options hidden fade-group" id="moreOptions">
+    <button class="option-btn" id="religionBtn" onclick="showSub('religionBtn', 'religions')">Dinler</button>
+    <button class="option-btn" id="mythBtn" onclick="showSub('mythBtn', 'myths')">Mitolojiler</button>
+  </div>
+
+  <div class="sub-options hidden fade-group" id="religions">
+    <button class="option-btn" onclick="showTopics('religionTopics')">Hristiyanlık</button>
+    <button class="option-btn" onclick="showTopics('religionTopics')">İslam</button>
+    <button class="option-btn" onclick="showTopics('religionTopics')">Yahudilik</button>
+  </div>
+
+  <div class="sub-options hidden fade-group" id="myths">
+    <button class="option-btn" onclick="showTopics('mythTopics')">Yunan Mitolojisi</button>
+    <button class="option-btn" onclick="showTopics('mythTopics')">Türk Mitolojisi</button>
+    <button class="option-btn" onclick="showTopics('mythTopics')">Mısır Mitolojisi</button>
+  </div>
+
+  <div class="sub-options hidden fade-group" id="religionTopics">
+    <a href="#" class="sub-option">İnanç Esasları</a>
+    <a href="#" class="sub-option">Kutsal Kişiler / Peygamberler</a>
+    <a href="#" class="sub-option">Mucizeler</a>
+    <a href="#" class="sub-option">İbadetler ve Ritüeller</a>
+  </div>
+
+  <div class="sub-options hidden fade-group" id="mythTopics">
+    <a href="#" class="sub-option">Tanrılar ve Tanrıçalar</a>
+    <a href="#" class="sub-option">Yaratılış Efsaneleri</a>
+    <a href="#" class="sub-option">Ritüeller ve Törenler</a>
+    <a href="#" class="sub-option">Semboller ve Mimari</a>
+  </div>
+
+  <script>
+    function revealOptions() {
+      const btn = document.getElementById("moreBtn");
+      const options = document.getElementById("moreOptions");
+
+      btn.classList.add("fade-out");
+      setTimeout(() => {
+        btn.style.display = "none";
+        options.classList.remove("hidden");
+        options.classList.add("fade-in");
+      }, 600);
+    }
+
+    function showSub(clickedId, subId) {
+      const clickedButton = document.getElementById(clickedId);
+      const subOptions = document.getElementById(subId);
+      const otherButtonId = clickedId === 'religionBtn' ? 'mythBtn' : 'religionBtn';
+      const otherButton = document.getElementById(otherButtonId);
+
+      clickedButton.classList.add("fade-out");
+      otherButton.classList.add("fade-out");
+
+      setTimeout(() => {
+        clickedButton.style.display = "none";
+        otherButton.style.display = "none";
+        subOptions.classList.remove("hidden");
+        subOptions.classList.add("fade-in");
+      }, 600);
+    }
+
+    function showTopics(topicId) {
+      // Eski açık seçenekleri kapat
+      const allSubOptionGroups = document.querySelectorAll('.sub-options');
+      allSubOptionGroups.forEach(group => {
+        if (!group.classList.contains("hidden")) {
+          group.classList.add("fade-out");
+          setTimeout(() => {
+            group.style.display = "none";
+          }, 600);
+        }
+      });
+
+      // Yeni grubu göster
+      const topics = document.getElementById(topicId);
+      setTimeout(() => {
+        topics.classList.remove("hidden");
+        topics.classList.add("fade-in");
+        topics.style.display = "flex";
+      }, 600);
+    }
+  </script>
+</body>
+</html>
